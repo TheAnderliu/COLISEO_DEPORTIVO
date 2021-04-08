@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <title>Jugadores</title>
+        <link rel="icon" type="image/png" href="../img/icon.png">
+        <link rel="stylesheet" href="../css/main.css">
+
+    </head>
+    <body>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark" id="navegacion">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../img/logo.png" alt="" width="150">
+                </a>
+
+                <button class="navbar-toggler" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" 
+                    aria-expanded="false" 
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto text-center">
+                        <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" th:href="@{/equipos}">Equipos</a></li>
+                        <li class="nav-item btn-lg" id="option-selected" ><a class="nav-link" id="an-opciones" th:href="@{/jugadores}">Jugadores</a></li>
+                        <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" th:href="@{/deportes}">Deportes</a></li>
+                        <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" th:href="@{/canchas}">Canchas</a></li>
+                        <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" th:href="@{/reservas}">Reservas</a></li>
+                        <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" onclick="window.location.reload();" th:href="@{/logout}">Cerrar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+		<div class="container mt-5">
+		<h2 style="color:white;">Jugadores</h2>
+		<div th:if="${mensajeExito !=null}" class='alert alert-success' th:text="${mensajeExito}" role='alert'></div>
+		<div th:if="${mensajeDobleJugador !=null}" class='alert alert-danger' th:text="${mensajeDobleJugador}" role='alert'></div>
+		</div>
+
+        <!-- FORMULARIO REGSITRAR-->
+        <div class="container mt-5" id="formulario" >
+
+        <form class="row g-3 needs-validation"  th:action="@{/registrarJugador}" method="post" th:object="${jugador}">
+        	
+        	<div class="col-md-1">
+                	<label for="teamId" class="form-label">ID</label>
+                	 <input type="text" class="form-control" th:value="${jugador.idJugador}" disabled="disabled">
+                	 <input type="hidden" th:field="*{idJugador}">
+                </div>
+        	
+            <!--DATOS-->
+            <div class="col-md-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="name" value="" required th:field="*{nombreJugador}" th:errorclass="'form-control alert-danger'">
+              <small class="form-text text-danger" th:if="${#fields.hasErrors('nombreJugador')}" th:errors="*{nombreJugador}"></small>
+              <div class="valid-feedback">
+                Correcto!
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label for="firstLastName" class="form-label">Primer Apellido</label>
+              <input type="text" class="form-control" id="firstLastName" value="" required th:field="*{primerApellidoJugador}" th:errorclass="'form-control alert-danger'">
+              <small class="form-text text-danger" th:if="${#fields.hasErrors('primerApellidoJugador')}" th:errors="*{primerApellidoJugador}"></small>
+              <div class="valid-feedback">
+                Correcto!
+              </div>
+            </div>
+            <div class="col-md-3">
+                <label for="secondLastName" class="form-label">Segundo Apellido</label>
+                <input type="text" class="form-control" id="secondLastName" value="" required th:field="*{segundoApellidoJugador}" th:errorclass="'form-control alert-danger'">
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('segundoApellidoJugador')}" th:errors="*{segundoApellidoJugador}"></small>
+                <div class="valid-feedback">
+                  Correcto!
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="dni" class="form-label">DNI</label>
+                <input type="text" class="form-control" id="dni" value="" required th:field="*{dniJugador}" th:errorclass="'form-control alert-danger'">
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('dniJugador')}" th:errors="*{dniJugador}"></small>
+                <div class="valid-feedback">
+                  Correcto!
+                </div>
+              </div>
+              <!--EQUIPO-->
+              <div class="col-md-3">
+              <label for="teamName" class="form-label">Equipo</label>
+              <select class="form-select"  th:field="*{equipo.idEquipo}" th:errorclass="'form-control alert-danger'">
+                
+                <!--OPCIONES EQUIPO-->
+                <option th:each="Equipo : ${listadoEquipos}" th:value="${Equipo.idEquipo}" th:text="${Equipo.nombreEquipo}">
+                ...</option>
+              </select>
+            </div>
+            <!--CONFIRMAR DATOS-->
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <label class="form-check-label" for="invalidCheck">
+                  ¿Datos de Jugador Correcto?
+                </label>
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <!--SUBMIT-->
+            <div class="col-12">
+              <input class="btn btn-primary" id="boton" type="submit" value="Guardar"></input>
+            </div>
+          </form>
+
+        </div>
+        
+        
+
+      <!--TABLA-->
+      <div class="container mt-5" id="tabla">
+      <table class="table" id="tabla">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Primer Apellido</th>
+            <th scope="col">Segundo Apellido</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">Operaciones</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="jugador : ${listadoJugadores}">
+            <td th:text="${jugador.idJugador}">1</td>
+            <td th:text="${jugador.nombreJugador}">Mark</td>
+            <td th:text="${jugador.primerApellidoJugador}">Otto</td>
+            <td th:text="${jugador.segundoApellidoJugador}">@Smith</td>
+            <td th:text="${jugador.dniJugador}">75123456</td>
+            <td th:text="${jugador.equipo.nombreEquipo}">Los Lagartos</td>
+            <td>
+              <!-- Call to action buttons -->
+              <ul class="list-inline m-0">
+                  <li class="list-inline-item">
+                      <a th:href="@{/editarJugador/{idJugador} (idJugador=${jugador.idJugador}) }" class="btn btn-success btn-sm rounded-2" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><img src="../img/edit.png"></A>
+                  </li>
+                  <li class="list-inline-item">
+                      <a th:href="@{/eliminarJugador/{idJugador} (idJugador=${jugador.idJugador}) }"  onclick="return confirm('¿Estás seguro?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
+                  </li>
+              </ul>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+        <!--EDIT DELETE-->
+        <script>
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+          });
+        </script>
+        
+        <!--JAVASCRIPT PARA DETECTAR FORMULARIO INVALIDO-->
+        <script>
+            (function () {
+                'use strict'
+
+                // Obtener todos los formularios que queremos aplicar la validación
+                var forms = document.querySelectorAll('.needs-validation')
+
+                // Bucle para validar
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                    })
+                })()
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        
+        <noscript> alert('Esta Pagina usa JavaScript') </noscript>
+    </body>
+</html>

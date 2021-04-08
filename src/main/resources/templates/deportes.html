@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <title>Equipos</title>
+        <link rel="icon" type="image/png" href="../img/icon.png">
+        <link rel="stylesheet" href="../css/main.css">
+
+    </head>
+    <body>
+        <div>
+            <!-- NAVBAR -->
+            <nav class="navbar navbar-expand-lg navbar-dark" id="navegacion">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img src="../img/logo.png" alt="" width="150">
+                    </a>
+
+                    <button class="navbar-toggler" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" 
+                        aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto text-center">
+                            <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" th:href="@{/equipos}">Equipos</a></li>
+                            <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" th:href="@{/jugadores}">Jugadores</a></li>
+                            <li class="nav-item btn-lg" id="option-selected"><a class="nav-link" id="an-opciones" th:href="@{/deportes}">Deportes</a></li>
+                            <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" th:href="@{/canchas}">Canchas</a></li>
+                            <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" th:href="@{/reservas}">Reservas</a></li>
+                            <li class="nav-item btn-lg"><a class="nav-link" id="an-opciones" onclick="window.location.reload();" th:href="@{/logout}">Cerrar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+        
+        <div class="container mt-5">
+		<h2 style="color:white;">Deportes</h2>
+		<div th:if="${mensajeExito !=null}" class='alert alert-success' th:text="${mensajeExito}" role='alert'></div>
+		<div th:if="${mensajeDobleDeporte !=null}" class='alert alert-danger' th:text="${mensajeDobleDeporte}" role='alert'></div>
+		</div>
+
+        <!-- FORMULARIO -->
+        <div class="container mt-5" id="formulario">
+
+            <form class="row g-3 needs-validation" novalidate th:action="@{/registrarDeporte}" method="post" th:object="${deporte}">
+                <!--DATOS-->
+                <div class="col-md-1">
+                	<label for="teamId" class="form-label">ID</label>
+                	 <input type="text" class="form-control" th:value="${deporte.idDeporte}" disabled="disabled">
+                	 <input type="hidden" th:field="*{idDeporte}">
+                </div>
+                <div class="col-md-4">
+                  <label for="sportName" class="form-label">Nombre de Deporte</label>
+                  <input type="text" class="form-control" id="sportName" value="" required th:field="*{nombreDeporte}">
+                   <small class="form-text text-danger" th:if="${#fields.hasErrors('nombreDeporte')}" th:errors="*{nombreDeporte}"></small>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+
+                <!--CONFIRMAR DATOS-->
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                      ¿Dato de Deporte Correcto?
+                    </label>
+                    <div class="invalid-feedback">
+                      Debe marcar la casilla antes de guardar
+                    </div>
+                  </div>
+                </div>
+
+                <!--SUBMIT-->
+                <div class="col-12">
+                  <input class="btn btn-primary" id="boton" type="submit" value="Guardar" >
+                </div>
+            </form>
+    
+        </div>
+
+      <!--TABLA-->
+      <div class="container mt-5" id="tabla">
+        <table class="table" id="tabla">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre Deporte</th>
+              <th scope="col">Operaciones</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="deporte : ${listadoDeportes}">
+              <td th:text="${deporte.idDeporte}">1</td>
+              <td th:text="${deporte.nombreDeporte}">Futbol</td>
+              <td>
+                <!-- Call to action buttons -->
+                <ul class="list-inline m-0">
+                    <li class="list-inline-item">
+                        <a th:href="@{/editarDeporte/{idDeporte} (idDeporte=${deporte.idDeporte}) }" class="btn btn-success btn-sm rounded-2" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><img src="../img/edit.png"></A>
+                    </li>
+                    <li class="list-inline-item">
+                        <a th:href="@{/eliminarDeporte/{idDeporte} (idDeporte=${deporte.idDeporte}) }"  onclick="return confirm('¿Estás seguro?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
+                    </li>
+                </ul>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+  
+
+
+          <!--EDIT DELETE-->
+          <script>
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+    
+    
+            
+            <script>
+                // JAVASCRIPT PARA DETECTAR FORMULARIO INVALIDO
+                (function () {
+                    'use strict'
+    
+                    // Obtener todos los formularios que queremos aplicar la validación
+                    var forms = document.querySelectorAll('.needs-validation')
+    
+                    // Bucle para validar
+                    Array.prototype.slice.call(forms)
+                        .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            }
+    
+                            form.classList.add('was-validated')
+                        }, false)
+                        })
+                    })()
+            </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <noscript> alert('Esta Pagina usa JavaScript') </noscript>
+    </body>
+</html>
