@@ -17,7 +17,7 @@ import pe.upc.experimentos.service.UserService;
 
 
 @Controller
-@RequestMapping("/registrarAdministrador")
+@RequestMapping("registrarAdministrador")
 public class UserRegistrationController {
 
 	 @Autowired
@@ -47,6 +47,6 @@ public class UserRegistrationController {
 	        }
 
 	        userService.save(userDto);
-	        return "redirect:/login";
+	        return "redirect:login";
 	    }
 }
