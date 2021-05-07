@@ -18,3 +18,5 @@ INSERT INTO horario (id_horario, descripcion_horario) values (10, '4:00PM - 5:00
 INSERT INTO horario (id_horario, descripcion_horario) values (11, '5:00PM - 6:00PM');
 INSERT INTO horario (id_horario, descripcion_horario) values (12, '6:00PM - 7:00PM');
 
+
+
