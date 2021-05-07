@@ -46,13 +46,18 @@ public class Reserva implements Serializable{
 	
 	@NotNull(message = "Debe ingresar fecha*")
 	@Temporal(TemporalType.DATE)	
-	@DateTimeFormat(pattern = "yy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name ="fechaReserva", nullable=false)
 	private Date fechaReserva;
 
+	@Column(name ="estadoReserva", nullable=false)
+	private Boolean estadoReserva; 
 	
 	
 	public Reserva() {
+		
+		this.estadoReserva = true;
 		
 	}
 
@@ -95,7 +100,16 @@ public class Reserva implements Serializable{
 	public void setFechaReserva(Date fechaReserva) {
 		this.fechaReserva = fechaReserva;
 	}
+
 	
+	public Boolean getEstadoReserva() {
+		return estadoReserva;
+	}
+
+	public void setEstadoReserva(Boolean estadoReserva) {
+		this.estadoReserva = estadoReserva;
+	}
+
 	
 	
 }

@@ -55,7 +55,7 @@ public class ReservaService implements IReservaService, Serializable{
 	@Override
 	public Integer update(Reserva Reserva) {
 		
-		int rpta = reservaRepository.searchIdCanchaFechaReserva(Reserva.getCancha().getIdCancha(), Reserva.getFechaReserva());
+		int rpta = reservaRepository.searchIdCanchaFechaReservaActualizar(Reserva.getCancha().getIdCancha(), Reserva.getFechaReserva(), Reserva.getEstadoReserva());
 		if (rpta==0) {
 			
 			reservaRepository.save(Reserva);
@@ -106,6 +106,18 @@ public class ReservaService implements IReservaService, Serializable{
 	public List<Reserva> findAll() {
 		// TODO Auto-generated method stub
 		return reservaRepository.findAll();
+	}
+
+	@Override
+	public List<Reserva> encontrarReservasPagadas() {
+		
+		return reservaRepository.ListaDeReservasPorEstado(false);
+	}
+
+	@Override
+	public List<Reserva> encontrarReservasPorPagar() {
+		
+		return reservaRepository.ListaDeReservasPorEstado(true);
 	}
 
 

@@ -45,6 +45,7 @@
 		<h2 style="color:white;">Jugadores</h2>
 		<div th:if="${mensajeExito !=null}" class='alert alert-success' th:text="${mensajeExito}" role='alert'></div>
 		<div th:if="${mensajeDobleJugador !=null}" class='alert alert-danger' th:text="${mensajeDobleJugador}" role='alert'></div>
+		<div th:if="${mensaje !=null}" class='alert alert-danger' th:text="${mensaje}" role='alert'></div>
 		</div>
 
         <!-- FORMULARIO REGSITRAR-->
@@ -85,7 +86,7 @@
               </div>
               <div class="col-md-4">
                 <label for="dni" class="form-label">DNI</label>
-                <input type="text" class="form-control" id="dni" value="" required th:field="*{dniJugador}" th:errorclass="'form-control alert-danger'">
+                <input type="tel" min="8" max="8" class="form-control" id="dni" value="" required th:field="*{dniJugador}" th:errorclass="'form-control alert-danger'">
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('dniJugador')}" th:errors="*{dniJugador}"></small>
                 <div class="valid-feedback">
                   Correcto!
@@ -153,7 +154,7 @@
                       <a th:href="@{/editarJugador/{idJugador} (idJugador=${jugador.idJugador}) }" class="btn btn-success btn-sm rounded-2" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><img src="../img/edit.png"></A>
                   </li>
                   <li class="list-inline-item">
-                      <a th:href="@{/eliminarJugador/{idJugador} (idJugador=${jugador.idJugador}) }"  onclick="return confirm('¿Estás seguro?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
+                      <a th:href="@{/eliminarJugador/{idJugador} (idJugador=${jugador.idJugador}) }"  onclick="return confirm('¿Está seguro de eliminar a este jugador?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
                   </li>
               </ul>
           </td>

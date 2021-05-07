@@ -16,4 +16,8 @@ public interface IReservaService {
 	
 	public List<Reserva> findAll();
 	
+	public List<Reserva> encontrarReservasPagadas();
+	
+	public List<Reserva> encontrarReservasPorPagar();
+	
 }

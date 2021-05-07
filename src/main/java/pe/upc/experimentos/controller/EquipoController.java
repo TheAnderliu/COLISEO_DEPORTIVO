@@ -32,6 +32,9 @@ public class EquipoController {
 			
 		} else {
 			
+			int EsRegistro = equipo.getIdEquipo();
+
+			
 			int rpta = equipoService.save(equipo);
 			if (rpta >0) {
 				model.addAttribute("mensaje", "Ya existe un equipo registrado con el mismo nombre");
@@ -40,7 +43,18 @@ public class EquipoController {
 				
 				return "equipos";
 			}else {
-				model.addAttribute("mensajeExito", "¡Equipo registrado!");
+				
+				if (EsRegistro==0) {
+					model.addAttribute("mensajeExito", "¡Equipo registrado!");
+				} else {
+					
+					model.addAttribute("mensajeExito", "¡Equipo actualizado!");
+					
+				}
+				
+				
+				
+				
 				status.setComplete();
 			}
 			
@@ -80,7 +94,7 @@ public class EquipoController {
 	
 		equipoService.delete(idEquipo);
 		
-		attributes.addFlashAttribute("mensajeExito", "El equipo fue eliminado");
+		attributes.addFlashAttribute("mensajeExito", "El equipo fue eliminado correctamente");
 		
 		
 		return "redirect:/equipos";

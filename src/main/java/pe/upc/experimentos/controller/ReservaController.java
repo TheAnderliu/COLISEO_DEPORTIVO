@@ -112,6 +112,10 @@ public class ReservaController {
 		
 		model.addAttribute("listadoCanchas", canchaService.findAll());
 		
+		model.addAttribute("listadoReservasPagadas", reservaService.encontrarReservasPagadas());
+		
+		model.addAttribute("listadoReservasPorPagar", reservaService.encontrarReservasPorPagar());
+
 	}
 	
 	
@@ -120,7 +124,7 @@ public class ReservaController {
 	
 		reservaService.delete(idReserva);
 		
-		attributes.addFlashAttribute("mensajeExito", "La cancha fue eliminada");
+		attributes.addFlashAttribute("mensajeExito", "La reserva fue eliminada correctamente");
 		
 		
 		return "redirect:/reservas";

@@ -118,7 +118,7 @@
 	                    <li class="list-inline-item">
 	                    	
 	                    		<input type="hidden"  th:value="${equipo}" id="equipo" name="equipo">
-	                        	<a th:href="@{/eliminarEquipo/{idEquipo} (idEquipo=${equipo.idEquipo}) }"  onclick="return confirm('¿Estás seguro?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
+	                        	<a th:href="@{/eliminarEquipo/{idEquipo} (idEquipo=${equipo.idEquipo}) }"  onclick="return confirm('¿Está seguro de eliminar este equipo?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
 	                    	
 	                    </li>
 	                </ul>

@@ -112,7 +112,7 @@
                         <a th:href="@{/editarDeporte/{idDeporte} (idDeporte=${deporte.idDeporte}) }" class="btn btn-success btn-sm rounded-2" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><img src="../img/edit.png"></A>
                     </li>
                     <li class="list-inline-item">
-                        <a th:href="@{/eliminarDeporte/{idDeporte} (idDeporte=${deporte.idDeporte}) }"  onclick="return confirm('¿Estás seguro?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
+                        <a th:href="@{/eliminarDeporte/{idDeporte} (idDeporte=${deporte.idDeporte}) }"  onclick="return confirm('¿Está seguro de eliminar este deporte?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
                     </li>
                 </ul>
             </td>

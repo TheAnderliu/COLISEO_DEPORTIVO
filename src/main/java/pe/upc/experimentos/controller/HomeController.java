@@ -119,11 +119,13 @@ public class HomeController {
 		
 		model.addAttribute("reserva", new Reserva());
 		
-		model.addAttribute("listadoReservas", reservaService.findAll());
+		model.addAttribute("listadoReservasPorPagar", reservaService.encontrarReservasPorPagar());
 		
 		model.addAttribute("listadoEquipos", equipoService.findAll());
 		
 		model.addAttribute("listadoCanchas", canchaService.findAll());
+		
+		model.addAttribute("listadoReservasPagadas", reservaService.encontrarReservasPagadas());
 		
 		return "reservas";
 	}

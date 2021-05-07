@@ -31,7 +31,7 @@ public class JugadorController {
 	public String registrarJugador(@Valid Jugador jugador, BindingResult result, Model model, SessionStatus status, RedirectAttributes redirectAttrs) {
 		
 		if (result.hasErrors()) {
-			redirectAttrs.addFlashAttribute("mensaje", "El campo no puede estar vacío");
+			redirectAttrs.addFlashAttribute("mensaje", "Ingrese los datos correctamente en todos los campos");
 			return "redirect:/jugadores";
 			
 		} else {
@@ -99,7 +99,7 @@ public class JugadorController {
 	
 		jugadorService.delete(idJugador);
 		
-		attributes.addFlashAttribute("mensajeExito", "El equipo fue eliminado");
+		attributes.addFlashAttribute("mensajeExito", "El jugador fue eliminado correctamente");
 		
 		
 		return "redirect:/jugadores";

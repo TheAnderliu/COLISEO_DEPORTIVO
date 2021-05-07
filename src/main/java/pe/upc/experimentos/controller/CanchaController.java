@@ -121,7 +121,7 @@ public class CanchaController {
 	
 		canchaService.delete(idCancha);
 		
-		attributes.addFlashAttribute("mensajeExito", "La cancha fue eliminada");
+		attributes.addFlashAttribute("mensajeExito", "La cancha fue eliminada correctamente");
 		
 		
 		return "redirect:/canchas";

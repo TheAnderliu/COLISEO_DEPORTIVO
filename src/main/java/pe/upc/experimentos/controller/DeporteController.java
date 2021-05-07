@@ -90,7 +90,7 @@ public class DeporteController {
 	
 		deporteService.delete(idDeporte);
 		
-		attributes.addFlashAttribute("mensajeExito", "El deporte fue eliminado");
+		attributes.addFlashAttribute("mensajeExito", "El deporte fue eliminado correctamente");
 		
 		
 		return "redirect:/deportes";

@@ -107,10 +107,22 @@
             <!--FECHA-->
             <div class="col-md-2">
                 <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="fecha" value="" required th:field="*{fechaReserva}" th:errorclass="'form-control alert-danger'">
+                <input type="date" class="form-control" id="fecha" value="${fechaReserva}" required th:field="*{fechaReserva}" th:errorclass="'form-control alert-danger'">
                 <div class="valid-feedback">
                   Looks good!
                 </div>
+            </div>
+            
+            
+            <!--ESTADO-->
+            <div class="col-md-2">
+                <label for="fecha" class="form-label">Estado</label>
+              	 	<select class="form-select" th:field="*{estadoReserva}" th:errorclass="'form-control alert-danger'">
+                  
+	                  	<!--OPCIONES CANCHAS-->
+	                  	<option value="1" >Por pagar</option>
+						<option value="0" >Pagado</option>
+                	</select>
             </div>
 
                 <!--CONFIRMAR DATOS-->
@@ -144,17 +156,20 @@
               <th scope="col">Equipo B</th>
               <th scope="col">Cancha</th>
               <th scope="col">Fecha</th>
+              <th scope="col">Estado</th>
               <th scope="col">Operaciones</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr th:each="reserva : ${listadoReservas}">
+            <tr th:each="reserva : ${listadoReservasPorPagar}">
               <td th:text="${reserva.idReserva}">1</td>
               <td th:text="${reserva.equipoA.nombreEquipo}">Los Lagartos</td>
               <td th:text="${reserva.equipoB.nombreEquipo}">Los King</td>
               <td th:text="${reserva.cancha.deporte.nombreDeporte}+ ' ' +${reserva.cancha.local.nombreLocal} + ' ' +${reserva.cancha.horario.descripcionHorario}">Futbol San Isidro 10:00AM - 11:00AM</td>
-              <td th:text="${reserva.fechaReserva}">30/03/2021</td>
+              <td th:text="${#dates.format(reserva.fechaReserva, 'dd/MM/yyyy')}">30/03/2021</td>
+              <td th:if="${reserva.estadoReserva ==true}" th:text="'Por pagar'">30/03/2021</td>
+              <td th:if="${reserva.estadoReserva ==false}" th:text="'Pagado'">30/03/2021</td>
               <td>
                 <!-- Call to action buttons -->
                 <ul class="list-inline m-0">
@@ -162,16 +177,53 @@
                         <a th:href="@{/editarReserva/{idReserva} (idReserva=${reserva.idReserva}) }" class="btn btn-success btn-sm rounded-2" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><img src="../img/edit.png"></A>
                     </li>
                     <li class="list-inline-item">
-                         <a th:href="@{/eliminarReserva/{idReserva} (idReserva=${reserva.idReserva}) }"  onclick="return confirm('¿Estás seguro?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
+                         <a th:href="@{/eliminarReserva/{idReserva} (idReserva=${reserva.idReserva}) }"  onclick="return confirm('¿Está seguro de eliminar esta reserva?')" class="btn btn-danger btn-sm rounded-2" type="submit" data-toggle="tooltip" data-placement="top" title="Eliminar" value="Eliminar" role="button"><img src="../img/delete.png"></a>
                     </li>
                 </ul>
             </td>
             </tr>
           </tbody>
-        </table>
+         </table>
         </div>
   
+  
+  
+		<!-- TABLA HISTORIAL -->
+		
+		<div class="container mt-5">
+			<h2 style="color:white;">Historial de Reservas</h2>
+		</div>
+		
+		<div class="container mt-5" id="tabla">
+        <table class="table" id="tabla">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Equipo A</th>
+              <th scope="col">Equipo B</th>
+              <th scope="col">Cancha</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Estado</th>
+              
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="reserva : ${listadoReservasPagadas}">
+              <td th:text="${reserva.idReserva}">1</td>
+              <td th:text="${reserva.equipoA.nombreEquipo}">Los Lagartos</td>
+              <td th:text="${reserva.equipoB.nombreEquipo}">Los King</td>
+              <td th:text="${reserva.cancha.deporte.nombreDeporte}+ ' ' +${reserva.cancha.local.nombreLocal} + ' ' +${reserva.cancha.horario.descripcionHorario}">Futbol San Isidro 10:00AM - 11:00AM</td>
+              <td th:text="${#dates.format(reserva.fechaReserva, 'dd/MM/yyyy')}">30/03/2021</td>
+              <td th:if="${reserva.estadoReserva ==true}" th:text="'Por pagar'">30/03/2021</td>
+              <td th:if="${reserva.estadoReserva ==false}" th:text="'Pagado'">30/03/2021</td>
 
+            </tr>
+          </tbody>
+         </table>
+        </div>
+		
+		
 
           <!--EDIT DELETE-->
           <script>
