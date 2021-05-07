@@ -17,7 +17,7 @@ import pe.upc.experimentos.service.UserService;
 
 
 @Controller
-@RequestMapping("registrarAdministrador")
+@RequestMapping("/registrarAdministrador")
 public class UserRegistrationController {
 
 	 @Autowired
