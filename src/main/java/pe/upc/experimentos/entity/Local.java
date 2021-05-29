@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Local")
@@ -30,6 +31,7 @@ public class Local implements Serializable{
 	
 	@NotEmpty(message = "Debe ingresar el nombre del local")
 	@Column(name = "nombreLocal", length = 50, nullable = false)
+	
 	private String nombreLocal;
 	
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)

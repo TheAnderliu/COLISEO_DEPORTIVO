@@ -28,7 +28,7 @@ public class Horario implements Serializable{
 	@Column(name = "idHorario")
 	private int idHorario;
 	
-	@NotEmpty(message = "Debe ingresar segundo apellido")
+	@NotEmpty(message = "Debe ingresar la descripcion del horario")
 	@Column(name = "descripcionHorario", length = 50, nullable = false)	
 	private String descripcionHorario;
 	

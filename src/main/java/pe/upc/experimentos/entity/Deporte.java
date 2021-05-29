@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Deporte")
@@ -30,6 +31,7 @@ public class Deporte implements Serializable{
 	
 	@NotEmpty(message = "Debe ingresar el nombre del deporte")
 	@Column(name = "nombreDeporte", length = 50, nullable = false)
+	
 	private String nombreDeporte;
 	
 	@OneToMany(mappedBy = "deporte", cascade = CascadeType.ALL)

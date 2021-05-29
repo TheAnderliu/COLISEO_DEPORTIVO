@@ -15,7 +15,7 @@
             <!-- NAVBAR -->
             <nav class="navbar navbar-expand-lg navbar-dark" id="navegacion">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" th:href="@{/home}">
                         <img src="../img/logo.png" alt="" width="150">
                     </a>
 
@@ -62,16 +62,16 @@
                 </div>
                 <div class="col-md-4">
                   <label for="teamName" class="form-label">Nombre de Equipo</label>
-                  <input type="text" class="form-control" id="teamName" value="" th:field="*{nombreEquipo}">
+                  <input type="text" class="form-control" id="teamName"  th:field="*{nombreEquipo}" required
+						pattern="^[A-Za-z]{2,2}[A-Za-z ]{0,28}"
+						title="Solo se permiten letras, desde 2 a 30 caracteres">
                   <p th:if="${mensaje !=null}" th:text="${mensaje}" class="form-text text-danger"></p>
                 
-                  <div class="valid-feedback">
-                    
-                  </div>
+                  
                 </div>
 
                 <!--CONFIRMAR DATOS-->
-                <div class="col-12">
+               <!--  <div class="col-12">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                     <label class="form-check-label" for="invalidCheck">
@@ -81,7 +81,7 @@
                       Debe marcar la casilla antes de guardar
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!--SUBMIT-->
                 <div class="col-12">

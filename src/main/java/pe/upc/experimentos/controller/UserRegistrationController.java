@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.support.SessionStatus;
 
 import pe.upc.experimentos.dto.UserRegistrationDto;
+import pe.upc.experimentos.entity.Equipo;
 import pe.upc.experimentos.entity.User;
 import pe.upc.experimentos.service.UserService;
 
@@ -35,18 +37,31 @@ public class UserRegistrationController {
 
 	    @PostMapping
 	    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
-	                                      BindingResult result){
+	                                      BindingResult result,  Model model, SessionStatus status){
 
 	        User existing = userService.findByUsername(userDto.getUsername());
 	        if (existing != null){
 	            result.rejectValue("username", null, "El usuario ya existe");
+	            model.addAttribute("mensaje", "Ya existe un usuario registrado con el mismo nombre de usuario");
 	        }
 
-	        if (result.hasErrors()){
+	        else if (result.hasErrors()){
+	        	 model.addAttribute("mensaje", "Llene todos los campos correctamente");
 	            return "registrarAdministrador";
 	        }
-
-	        userService.save(userDto);
-	        return "redirect:/login";
+	        
+	        else {
+	        	
+		        userService.save(userDto);
+		        
+		        model.addAttribute("mensajeExito", "¡Registro exitoso!");
+		        
+		        status.setComplete();
+		        
+		        }
+	        
+	        model.addAttribute("user", new UserRegistrationDto());
+		    return "registrarAdministrador";
+	        
 	    }
 }

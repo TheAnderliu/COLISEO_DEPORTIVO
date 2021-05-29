@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -33,19 +34,23 @@ public class Jugador implements Serializable{
 	
 	@NotEmpty(message = "Debe ingresar nombre")
 	@Column(name = "nombreJugador", length = 50, nullable = false)
+	
 	private String nombreJugador;
 	
 	@NotEmpty(message = "Debe ingresar primer apellido")
 	@Column(name = "primerApellidoJugador", length = 50, nullable = false)
+	
 	private String primerApellidoJugador;
 	
 	@NotEmpty(message = "Debe ingresar segundo apellido")
 	@Column(name = "segundoApellidoJugador", length = 50, nullable = false)	
+	
 	private String segundoApellidoJugador;
 	
 	@Size(min = 8, max = 8)
 	@NotEmpty(message = "Debe ingresar DNI")
 	@Column(name="dniJugador", nullable=false, length = 8)
+	
 	private String dniJugador;
 
 	@ManyToOne(fetch = FetchType.LAZY)

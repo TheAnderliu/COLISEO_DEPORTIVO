@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <title>Equipos</title>
+        <title>Deportes</title>
         <link rel="icon" type="image/png" href="../img/icon.png">
         <link rel="stylesheet" href="../css/main.css">
 
@@ -15,7 +15,7 @@
             <!-- NAVBAR -->
             <nav class="navbar navbar-expand-lg navbar-dark" id="navegacion">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" th:href="@{/home}">
                         <img src="../img/logo.png" alt="" width="150">
                     </a>
 
@@ -53,7 +53,7 @@
         <!-- FORMULARIO -->
         <div class="container mt-5" id="formulario">
 
-            <form class="row g-3 needs-validation" novalidate th:action="@{/registrarDeporte}" method="post" th:object="${deporte}">
+            <form class="row g-3 needs-validation"  th:action="@{/registrarDeporte}" method="post" th:object="${deporte}">
                 <!--DATOS-->
                 <div class="col-md-1">
                 	<label for="teamId" class="form-label">ID</label>
@@ -62,15 +62,18 @@
                 </div>
                 <div class="col-md-4">
                   <label for="sportName" class="form-label">Nombre de Deporte</label>
-                  <input type="text" class="form-control" id="sportName" value="" required th:field="*{nombreDeporte}">
-                   <small class="form-text text-danger" th:if="${#fields.hasErrors('nombreDeporte')}" th:errors="*{nombreDeporte}"></small>
+                  <input type="text" class="form-control" id="sportName"  th:field="*{nombreDeporte}" required
+						pattern="^[A-Za-z]{4,4}[A-Za-z ]{0,26}"
+						title="Solo se permiten letras, desde 4 a 30 caracteres">
+					 <p th:if="${mensaje !=null}" th:text="${mensaje}" class="form-text text-danger"></p>	
+                   <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('nombreDeporte')}" th:errors="*{nombreDeporte}"></small>
                   <div class="valid-feedback">
                     Looks good!
-                  </div>
+                  </div> -->
                 </div>
 
                 <!--CONFIRMAR DATOS-->
-                <div class="col-12">
+               <!--  <div class="col-12">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                     <label class="form-check-label" for="invalidCheck">
@@ -80,7 +83,7 @@
                       Debe marcar la casilla antes de guardar
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!--SUBMIT-->
                 <div class="col-12">

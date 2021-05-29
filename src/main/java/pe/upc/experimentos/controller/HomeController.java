@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import pe.upc.experimentos.entity.Cancha;
 import pe.upc.experimentos.entity.Deporte;
@@ -55,10 +56,27 @@ public class HomeController {
 		return "index";
 	}
 	
+	@GetMapping("/home")
+	public String Menu(Model model, HttpSession session) {
+		
+		//model.addAttribute("administrador", new Administrador());
+		
+		
+		return "home";
+	}
+	
+	
 	@GetMapping("/login" )
 	public String mostrarLogin() {
 	return "loginForm";
 	}
+	
+	@PostMapping("/login" )
+	public String mostrarIndex() {
+		System.out.println("Se ejecuat elk POST de mostrarindex");
+	return "index";
+	}
+	
 	
 	@GetMapping("/user")
     public String userIndex() {
