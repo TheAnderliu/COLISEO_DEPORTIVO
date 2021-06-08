@@ -35,36 +35,52 @@ public class JugadorController {
 			return "redirect:/jugadores";
 			
 		} else {
-			
+
 			int EsRegistro = jugador.getIdJugador();
-			
-				if (EsRegistro==0) {
-					
-				
-				
-				int rpta = jugadorService.save(jugador);
-					if (rpta >0) {
-						redirectAttrs.addFlashAttribute("mensajeDobleJugador", "Ya existe un jugador registrado con el mismo DNI");
-						
-						model.addAttribute("listadoEquipos", equipoService.findAll());
-						
-						model.addAttribute("listadoJugadores", jugadorService.findAll());
-						
-						return "redirect:/jugadores";
-					}else {
-						redirectAttrs.addFlashAttribute("mensajeExito", "¡Jugador registrado!");
-						status.setComplete();
-					}
-				
+
+			int rpta = jugadorService.save(jugador);
+
+			if (EsRegistro == 0) {
+
+				if (rpta > 0) {
+					redirectAttrs.addFlashAttribute("mensajeDobleJugador",
+							"Ya existe un jugador registrado con el mismo DNI");
+
+					model.addAttribute("listadoEquipos", equipoService.findAll());
+
+					model.addAttribute("listadoJugadores", jugadorService.findAll());
+
+					return "redirect:/jugadores";
 				} else {
-					
+					redirectAttrs.addFlashAttribute("mensajeExito", "¡Jugador registrado!");
+					status.setComplete();
+				}
+
+			} else {
+
+				if (rpta > 0) {
+					redirectAttrs.addFlashAttribute("mensajeDobleJugador",
+							"Ya existe un jugador registrado con el mismo DNI");
+
+					model.addAttribute("listadoEquipos", equipoService.findAll());
+
+					model.addAttribute("listadoJugadores", jugadorService.findAll());
+
+					return "redirect:/jugadores";
+				} else {
+
 					jugadorService.update(jugador);
 					redirectAttrs.addFlashAttribute("mensajeExito", "¡Jugador actualizado!");
 					status.setComplete();
 				}
-			
+
+
+
+
+			}
+
 		}
-		
+
 		
 		
 		return "redirect:/jugadores";
