@@ -20,7 +20,7 @@ public interface IJugadorRepository extends JpaRepository<Jugador, Integer>{
 	@Query("select count(e.dniJugador) from Jugador e where e.dniJugador = :dniJugador")
 	public int searchDniJugadorJugador(@Param("dniJugador")String dniJugador);
 	
-	@Query("select e from Jugador e where e.dniJugador = : dniJugador")
+	@Query("select e from Jugador e where e.dniJugador = :dniJugador")
 	public Jugador findByDniJugadorJugador(@Param("dniJugador")String dniJugador);
 	
 	

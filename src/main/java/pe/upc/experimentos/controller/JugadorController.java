@@ -38,9 +38,11 @@ public class JugadorController {
 
 			int EsRegistro = jugador.getIdJugador();
 
-			int rpta = jugadorService.save(jugador);
+			
 
 			if (EsRegistro == 0) {
+				
+				int rpta = jugadorService.save(jugador);
 
 				if (rpta > 0) {
 					redirectAttrs.addFlashAttribute("mensajeDobleJugador",
@@ -57,8 +59,12 @@ public class JugadorController {
 				}
 
 			} else {
+				
+				
+				int rpta = jugadorService.update(jugador, jugador.getDniJugador());
+				
 
-				if (rpta > 0) {
+				if ( rpta==1) {
 					redirectAttrs.addFlashAttribute("mensajeDobleJugador",
 							"Ya existe un jugador registrado con el mismo DNI");
 
@@ -67,9 +73,9 @@ public class JugadorController {
 					model.addAttribute("listadoJugadores", jugadorService.findAll());
 
 					return "redirect:/jugadores";
-				} else {
+				} else if (rpta==0){
 
-					jugadorService.update(jugador);
+					
 					redirectAttrs.addFlashAttribute("mensajeExito", "¡Jugador actualizado!");
 					status.setComplete();
 				}

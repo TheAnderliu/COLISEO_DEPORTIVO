@@ -35,9 +35,46 @@ public class JugadorService implements IJugadorService, Serializable{
 
 	@Transactional
 	@Override
-	public void update(Jugador Jugador) {
+	public Integer update(Jugador Jugador, String dniJugador) {
 		// TODO Auto-generated method stub
-		jugadorRepository.save(Jugador);
+		
+		int rpta = 0;
+		
+		Jugador JugadorEncontrado = new Jugador();
+		
+		if (jugadorRepository.searchDniJugadorJugador(Jugador.getDniJugador())==1) {
+			
+			
+			JugadorEncontrado = jugadorRepository.findByDniJugadorJugador(Jugador.getDniJugador());
+			
+			
+			
+			if (Jugador.getIdJugador()==JugadorEncontrado.getIdJugador()) {
+				
+				jugadorRepository.save(Jugador);
+				 rpta = 0;
+				
+			} else {
+				
+				 rpta = 1;
+				
+			}
+			
+			
+		} else if (jugadorRepository.searchDniJugadorJugador(Jugador.getDniJugador())==0) {
+			
+			jugadorRepository.save(Jugador);
+			 rpta = 0;
+			
+		}
+		
+		
+		
+		
+		
+		
+		return rpta;
+		
 	}
 
 	@Transactional
@@ -63,6 +100,12 @@ public class JugadorService implements IJugadorService, Serializable{
 	public Jugador findByDniJugadorJugador(String dniJugador) {
 		// TODO Auto-generated method stub
 		return jugadorRepository.findByDniJugadorJugador(dniJugador);
+	}
+
+	@Override
+	public Integer searchIdJugadorJugador(Integer idJugador) {
+		// TODO Auto-generated method stub
+		return jugadorRepository.searchIdJugadorJugador(idJugador);
 	}
 
 }

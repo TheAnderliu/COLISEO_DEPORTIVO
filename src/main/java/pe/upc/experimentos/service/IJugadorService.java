@@ -8,7 +8,7 @@ public interface IJugadorService {
 
 	public Integer save(Jugador Jugador);
 	
-	public void update(Jugador Jugador);
+	public Integer update(Jugador Jugador, String dniJugador);
 	
 	public void delete(Integer idJugador);
 	
@@ -17,4 +17,6 @@ public interface IJugadorService {
 	public List<Jugador> findAll();
 	
 	public Jugador findByDniJugadorJugador(String dniJugador);
+	
+	public Integer searchIdJugadorJugador (Integer idJugador);
 }
